@@ -1,3 +1,8 @@
+## RAG Rice Courses Scheduler   
+
+## Team Members 
+
+
 ## Running the app
 
 The frontend is a Vite/React app and the backend is a Django REST API.
