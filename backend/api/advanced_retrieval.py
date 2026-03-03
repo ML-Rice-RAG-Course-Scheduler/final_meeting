@@ -221,7 +221,35 @@ def _exclude_never_have(results, never_have_keywords):
 
     return [r for r in results if not is_forbidden_hit(r)]
 
-def expanded_retrieve(raw_query: str, base_where=None, top_k=25):
+def _build_where_clause(facet_filters):
+    """
+    Build a ChromaDB where clause from facet filters.
+    Supports: department, distribution_group, analyzing, level, program, diversity_credit
+    """
+    if not facet_filters:
+        return None
+    
+    conditions = []
+    
+    
+    if "distribution_group" in facet_filters and facet_filters["distribution_group"]:
+        conditions.append({"distribution_group": {"$eq": facet_filters["distribution_group"]}})
+    
+    if "course type" in facet_filters and facet_filters["course type"]:
+        conditions.append({"course_type": {"$eq": facet_filters["course type"]}})
+    
+    if "diversity_credit" in facet_filters and facet_filters["diversity_credit"] is not None:
+        conditions.append({"diversity_credit": {"$eq": facet_filters["diversity_credit"]}})
+    
+    if not conditions:
+        return None
+    
+    if len(conditions) == 1:
+        return conditions[0]
+    else:
+        return {"$and": conditions}
+
+def expanded_retrieve(raw_query: str, base_where=None, facet_filters=None, top_k=25):
     exp = expand_query_with_llm(raw_query)
 
     # Build candidate queries
@@ -231,14 +259,13 @@ def expanded_retrieve(raw_query: str, base_where=None, top_k=25):
     if exp.get("expanded_queries"):
         candidate_queries.extend(exp["expanded_queries"])
 
+    # Merge LLM-inferred facets with frontend-provided filters
     facets = exp.get("facet_filters") or {}
+    if facet_filters:
+        facets.update(facet_filters)
     
-
-    # For now, no metadata where-filtering (you can add it back later)
-    if base_where is not None:
-        where = base_where
-    else:
-        where = None
+    # Build where clause from facets
+    where = _build_where_clause(facets) if facets else base_where
 
     fused = query_chroma_multi(collection, candidate_queries, where=where, n_results=50)
 

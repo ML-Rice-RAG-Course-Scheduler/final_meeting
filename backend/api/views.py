@@ -12,11 +12,12 @@ def ask(request):
     question = request.data.get('question')
     print(question)
     name = request.data.get('name', 'User')
+    filters = request.data.get('filters', {})
     if not question:
         return Response({"error": "Question is required."},
                         status = status.HTTP_400_BAD_REQUEST)
     try:
-        answer = generate_answer(question)
+        answer = generate_answer(question, filters)
     except Exception as e:
         # return error with CORS header so frontend can receive it
         resp = Response({"error": str(e)},

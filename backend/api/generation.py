@@ -38,6 +38,7 @@ OUTPUT FORMAT (STRICT):
 • **<COURSE CODE>: <COURSE TITLE>**
   - Description: <paste/summarize ONLY from this course’s Description line>
   - Distribution Group: <value from this course>
+  - Course Type: <value from this course>
   - Diversity Credit: <value from this course>
   - Credit Hours: <value from this course>
 
@@ -47,11 +48,14 @@ IMPORTANT: Treat each course entry as ground truth. Never infer details. Never m
 """
 ollama = Client(host="http://localhost:11434")
 
-def generate_answer(user_query):
-    _, results = expanded_retrieve(user_query, top_k=3)
+def generate_answer(user_query, filters=None):
+    if filters is None:
+        filters = {}
+    print(filters)
+    _, results = expanded_retrieve(user_query, facet_filters=filters, top_k=3)
     
     # Filter out low-confidence results to prevent hallucination
-    confidence_threshold = 0.1  # Lowered to allow good results (scores typically 0.20-0.21)
+    confidence_threshold = 0.05  # Lowered to allow good results (scores typically 0.20-0.21)
     filtered_results = [r for r in results if r.get('fused_score', 0) > confidence_threshold]
     
     # If insufficient context, return honest response instead of hallucinating
@@ -59,7 +63,7 @@ def generate_answer(user_query):
         return "I couldn't find relevant courses for your query. Please try rephrasing or being more specific about what you're looking for."
     
     context = "\n\n".join([
-        f"{r['meta']['course']}: {r['meta']['title']}\nDescription: {r['meta'].get('description', 'No description available.')}\nDistribution Group: {r['meta'].get('distribution_group', 'N/A')}\nDiversity Credit: {r['meta'].get('diversity_credit', 'N/A')}\nCredit Hours: {r['meta'].get('credit_hours', 'N/A')}"
+        f"{r['meta']['course']}: {r['meta']['title']}\nDescription: {r['meta'].get('description', 'No description available.')}\nDistribution Group: {r['meta'].get('distribution_group', 'N/A')}\nCourse type: {r['meta'].get('course type', 'N/A')}\nCredit Hours: {r['meta'].get('credit_hours', 'N/A')}\nDiversity Credit: {r['meta'].get('diversity_credit', 'N/A')}"
         for r in filtered_results
     ])
     print(context)
