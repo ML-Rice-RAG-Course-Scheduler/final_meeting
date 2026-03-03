@@ -3,7 +3,6 @@
 ## Team Members
 
 **Group 1 – Retrieval & Frontend** (Developed a React-based frontend interface for the course recommender system, Designed and implemented hybrid retrieval architecture combining semantic vector search with keyword and prerequisite filtering, Engineered structured RAG prompts to generate accurate, personalized, and constraint-aware course recommendations)\
-
 &nbsp;&nbsp;&nbsp;&nbsp;The Phat Nghiem \
 &nbsp;&nbsp;&nbsp;&nbsp;Caleb Song \
 &nbsp;&nbsp;&nbsp;&nbsp;Tim Zhang
