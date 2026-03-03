@@ -1,4 +1,5 @@
-## RAG Rice Courses Scheduler   
+## RAG Rice Courses Recommender
+The RAG Rice Courses Recommender is an AI-powered course search and advising tool built for Rice University students.
 
 ## Team Members
 
