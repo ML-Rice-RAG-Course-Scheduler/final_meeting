@@ -2,7 +2,7 @@
 
 ## Team Members 
 
-**Group 2 - generation** \
+**Group 2 - generation** (retrieval pipeline finds top k most relevant courses, format into structured context block + pass to Ollama, made sure there was no hallucination, displays course codes, groups results by theme, prioritizes readability)\
 Wendy Jin \
 Grace Yang \
 Ryan Pascual
