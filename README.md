@@ -2,7 +2,7 @@
 
 ## Team Members 
 
-Group 2 - generation \
+**Group 2 - generation** \
 Wendy Jin \
 Grace Yang \
 Ryan Pascual
