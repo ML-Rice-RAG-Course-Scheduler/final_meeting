@@ -1,6 +1,13 @@
 ## RAG Rice Courses Scheduler   
 
-## Team Members 
+## Team Members
+
+**Group 1 – Retrieval & Frontend** (Developed a React-based frontend interface for the course recommender system, Designed and implemented hybrid retrieval architecture combining semantic vector search with keyword and prerequisite filtering, Engineered structured RAG prompts to generate accurate, personalized, and constraint-aware course recommendations)\
+
+&nbsp;&nbsp;&nbsp;&nbsp;The Phat Nghiem \
+&nbsp;&nbsp;&nbsp;&nbsp;Caleb Song \
+&nbsp;&nbsp;&nbsp;&nbsp;Tim Zhang
+
 
 **Group 2 - generation** (retrieval pipeline finds top k most relevant courses, format into structured context block + pass to Ollama, made sure there was no hallucination, displays course codes, groups results by theme, prioritizes readability)\
 &nbsp;&nbsp;&nbsp;&nbsp;Wendy Jin \
