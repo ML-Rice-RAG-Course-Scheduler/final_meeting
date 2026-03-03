@@ -2,6 +2,10 @@
 
 ## Team Members 
 
+Group 2 - generation
+Wendy Jin
+Grace Yang
+Ryan Pascual
 
 ## Running the app
 
